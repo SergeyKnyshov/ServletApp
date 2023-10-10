@@ -33,8 +33,9 @@ public class RegistrationServlet extends HttpServlet {
 
         UserProfile profile = new UserProfile(username, password, email);
 
+
         UserService.addNewUser(profile);
-        UserService.addSession(session.toString(), profile);
+        UserService.addSession(session.getId(), profile);
 
         if (req.getParameterValues("btnReg") != null ) {
             String path = "/files" + "?path=C:\\Java\\" + username;

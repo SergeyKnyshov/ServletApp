@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 
-@WebServlet("/")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -27,6 +27,22 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+
+        UserProfile user;
+
+        try {
+            user = UserService.getUserByLogin(username);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (user == null) {
+            resp.getWriter().write("You need to register");
+            return;
+        } else if (!user.getPass().equals(password)) {
+            resp.getWriter().write("Incorrect password");
+            return;
+        }
+        UserService.addSession(session.getId(), user);
 
         if (req.getParameterValues("btnLog") != null ) {
             String path = "/files" + "?path=C:\\Java\\" + username;

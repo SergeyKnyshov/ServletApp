@@ -9,7 +9,7 @@
 <body>
  <div align="center">
   <h1>Login</h1>
-  <form action="/" method="post">
+  <form action="/login" method="post">
    <table style="with: 100%">
     <tr>
      <td>UserName</td>
@@ -21,7 +21,7 @@
     </tr>
 
    </table>
-   <form name = "form1" method = "post" action = "/">
+   <form name = "form1" method = "post" action = "/login">
                    <button name="btnLog" type="submit">Login</button>
    </form>
   </form>

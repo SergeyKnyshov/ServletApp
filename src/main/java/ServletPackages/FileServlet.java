@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,9 +23,13 @@ public class FileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        HttpSession session = req.getSession();
         String path = null;
-        String username = req.getParameter("username");
+
+        if(UserService.getUserBySessionId(session.getId()) == null){return;}
+
+        String username = UserService.getUserBySessionId(session.getId()).getLogin();
+
 
         if(req.getParameterValues("btnUp") != null) {
             File newfile = file.getParentFile();
